@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+
+
+
+	<h1> Задача 1</h1>
+
+
+	<p>
+		Задача 1. Описати масив об’єктів – сайтів розроблених компанією з такими властивостями
+
+	<div>------------------- Властивості ---------------------------------</div>
+
+	<div>назва компанії на час розробки (назву періодично змінюють)<br>
+		власник компанії<br>
+		споснсори (масив спонсорів)<br>
+		* прізвище спонсора<br>
+		* ім’я спонсора<br>
+		* сума вкладень спонсора<br>
+		рік випуску<br>
+		вартість сайту</div>
+	</p>
+
+	<script>
+
+		//-----------------  1  Вводимо необхідні дані   ----------------------------------
+
+
+		let biltWedsites = [
+			{
+				// назва компанії на час розробки (назву періодично змінюють)
+				companyName: 'Good Mart',
+				//	власник компанії
+				stakeholder: 'Bob Green',
+				//	споснсори (масив спонсорів)
+				owner:
+				{
+					//прізвище спонсора
+					lastName: 'Arch',
+					// * ім’я спонсора
+					firstName: 'Ron',
+					//  сума вкладень спонсора ($)
+					investedSum: 35000,
+				},
+				//рік випуску
+				deployedYear: 2005,
+				//вартість сайту
+				websiteCost: 24560,
+			},
+			//  -  -  -  -  -  - - - -  -  -  -  -  - - - -  -  -  -  -  - - - -  -  -  -  -  - - - -  -  -  -  -  - - -
+			{
+				// назва компанії на час розробки (назву періодично змінюють)
+				companyName: 'FreeTools',
+				//	власник компанії
+				stakeholder: 'Aleks Dyrnev',
+				//	споснсори (масив спонсорів)
+				owner:
+				{
+					//прізвище спонсора
+					lastName: 'Stets',
+					// * ім’я спонсора
+					firstName: 'Polina',
+					//  сума вкладень спонсора 
+					investedSum: 290000,
+				},
+				//рік випуску
+				deployedYear: 2008,
+				//вартість сайту
+				websiteCost: 147200,
+			},
+
+			//  -  -  -  -  -  - - - -  -  -  -  -  - - - -  -  -  -  -  - - - -  -  -  -  -  - - - -  -  -  -  -  - - -
+			{
+				// назва компанії на час розробки (назву періодично змінюють)
+				companyName: 'PTNH',
+				//	власник компанії
+				stakeholder: 'Den Black',
+				//	споснсори (масив спонсорів)
+				owner:
+				{
+					//прізвище спонсора
+					lastName: 'Waise',
+					// * ім’я спонсора
+					firstName: 'Rick',
+					//  сума вкладень спонсора ($)
+					investedSum: 550000,
+				},
+				//рік випуску
+				deployedYear: 2015,
+				//вартість сайту
+				websiteCost: 381040,
+			},
+
+		]
+		// ------------------  2 Обчислення результату та Виведення результату   ------------------------------------
+
+		// 1.  загальну вартість усіх сайтів: 
+
+		let totalWedsiteCoast = biltWedsites.reduce((prevCoast, { websiteCost }) =>
+			prevCoast += websiteCost, 0)
+		document.write(`1. загальну вартість усіх сайтів : ${totalWedsiteCoast}<br><br>`)
+		//---------------------------------------------------------------------------------------------------------------
+
+		//2.  кількість сайтів, що було зроблено між 2000 та 2009 рр.
+		// додаю часовій интервал випуск книг
+		const startPeriod = 2000, endPeriod = 2009
+
+		let websitebildFrom2000to2009 = biltWedsites.reduce(
+			(prevYear, { deployedYear }) => deployedYear > startPeriod && deployedYear < endPeriod
+				? prevYear + 1
+				: prevYear
+			, 0
+		)
+		document.write(`2.  кількість сайтів, що було зроблено між 2000 та 2009  : ${websitebildFrom2000to2009}<br><br>`)
+
+		//---------------------------------------------------------------------------------------------------------------
+
+		// 3 кількість сайтів, де сума спонсорських вкладень була більшою за 100000
+
+
+
+		let countWebsitesInvestSumGreaterThen100000 = biltWedsites.reduce(
+			(prevCountWebSite, sum) => sum.owner.investedSum > 100000
+				? prevCountWebSite + 1
+				: prevCountWebSite
+			, 0)
+
+
+		document.write(`3. Кількість сайтів, де сума спонсорських вкладень була більшою за 100000: ${countWebsitesInvestSumGreaterThen100000}<br><br>`)
+
+		//---------------------------------------------------------------------------------------------------------------
+
+		// 4) створити загальний список усіх спонсорів (поки можуть повторюватись, просто зібрати усі у масив)
+
+		let totalListOfSponsor = biltWedsites.map(
+			({ owner }) => {
+				return [owner.firstName, owner.lastName]
+			}
+
+
+
+		)
+
+		document.write(`4 створити загальний список усіх спонсорів ${totalListOfSponsor}<br><br>`)
+		console.log(totalListOfSponsor)
+
+		// 5 знайти рік, коли прибуток був найбільшим 
+
+		function biggestIncomeByYear(biltWedsites) {
+			let biggestIncomeYear
+			let biggestIncome = - Infinity
+
+			for (let cost of biltWedsites) {
+				if (cost.websiteCost > biggestIncome) {
+					biggestIncome = cost.websiteCost
+					biggestIncomeYear = cost.deployedYear
+				}
+			}
+			return biggestIncomeYear
+		}
+
+		let year = biggestIncomeByYear(biltWedsites)
+		document.write(`5. рік, коли прибуток був найбільшим : ${year}<br><br>`)
+
+		//---------------------------------------------------------------------------------------------------------------
+		// 6) упорядкувати список за спаданням прибутку
+
+
+		let listSortByProfitDown = biltWedsites.sort((website1, website2) => website2.websiteCost - website1.websiteCost)
+
+		document.write(`6. упорядкувати список за спаданням прибутку : ${listSortByProfitDown}<br><br>`)
+
+		console.log(listSortByProfitDown)
+
+		//---------------------------------------------------------------------------------------------------------------
+
+		//7) Створити 2 окремих списки з копіями об’єктів, що містять сайти з вартість до 100000 і більше 100000
+		
+		let newArrless100K = biltWedsites.filter((priceCost) => priceCost.websiteCost < 100000)
+		console.log(newArrless100K)
+		let newArrmore100K = biltWedsites.filter((priceCost) => priceCost.websiteCost > 100000)
+		console.log(newArrmore100K)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</script>
+
+
+</body>
+
+</html>
